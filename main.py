@@ -75,102 +75,23 @@ async def on_message(message):
 
     #AugustChallenges
 
+    #AugustChallenges
+
     #----------------------------------------------#
+
         #trackstand challenge
-
-    #This prevents using the challengecommands in other channels
-
-    if not message.channel.name == '🏆challenges':
-
-        if message.content.lower().startswith('!aug21trackstand'):
-            if message.author.bot:
-                return
-            await message.channel.send(f'Please only use this in the #🏆challenges channel')
-
-        if message.content.lower().startswith('!aug21ride'):
-            if message.author.bot:
-                return
-            await message.channel.send(f'Please only use this in the #🏆challenges channel')
-
-        if message.content.lower().startswith('!wheelie'):
-            if message.author.bot:
-                return
-            await message.channel.send(f'Please only use this in the #🏆challenges channel')
-
-        if message.content.lower().startswith('!200ride'):
-            if message.author.bot:
-                return
-            await message.channel.send(f'Please only use this in the #🏆challenges channel')
-
     if message.channel.name == '🏆challenges':
-        
+    
         if message.content.lower().startswith('!aug21trackstand'):
 
-            await update_data(users, message.author)
-
-            users[str(message.author.id)]['aug21trackstand'] = 0
-
-
-
-            username = str(message.author.mention).split('#')[0]
-            isaug21trackstandcomplete = int(users[str(message.author.id)]['aug21trackstand'])
-            aug21trackstandrole = discord.utils.get(message.author.guild.roles, name = "August: Track Stand Pro")
-            challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
-            #messagesplit = message.content.split(" ",8)[1:]
-
-            if "August: Track Stand Pro" in [y.name for y in message.author.roles]:
-                await message.channel.send(f'You can travel back in time and do it again? Insane but still only one role')
-                await aug21trackstandchallenge (users, message.author)
-
-            elif not isaug21trackstandcomplete == 1:
-                
-                await aug21trackstandchallenge (users, message.author)
-
-                await message.author.add_roles(aug21trackstandrole)
-
-                await message.channel.send(f'Congratulations {username} you have completed the August trackstand Challenge! Here is the role you have earned!')
-
-
-            #This is for the Challenger role incase they don't have it
-            if "Challenger" in [y.name for y in message.author.roles]:
-                return
-            elif "Challenger" not in [y.name for y in message.author.roles]:
-                await message.author.add_roles(challengerrole)
-
+            await aug21trackstand(users, message.author, message)
+    
         #400km ride Challenge
     if message.channel.name == '🏆challenges':
-        
+
         if message.content.lower().startswith('!aug21ride'):
 
-            await update_data(users, message.author)
-
-            users[str(message.author.id)]['aug21ride'] = 0
-
-
-
-            username = str(message.author.mention).split('#')[0]
-            isaug21ride = int(users[str(message.author.id)]['aug21ride'])
-            aug21riderole = discord.utils.get(message.author.guild.roles, name = "August: Steady Rider")
-            #messagesplit = message.content.split(" ",8)[1:]
-
-            if "August: Steady Rider" in [y.name for y in message.author.roles]:
-                await message.channel.send(f'Only. One. Role.')
-                await aug21ridechallenge (users, message.author)
-
-            elif not isaug21ride == 1:
-                
-                await aug21ridechallenge (users, message.author)
-
-                await message.author.add_roles(aug21riderole)
-
-                await message.channel.send(f'Congratulations {username} you have completed the August ride Challenge! Here is the role you have earned!')
-
-            #This is for the Challenger role incase they don't have it
-            if "Challenger" in [y.name for y in message.author.roles]:
-                return
-            elif "Challenger" not in [y.name for y in message.author.roles]:
-                await message.author.add_roles(challengerrole)
-
+            await aug21ride(users, message.author, message)
 
     #--------------------------------------------#
 
@@ -179,68 +100,21 @@ async def on_message(message):
     #----------------------------------------------#
         #Wheelie challenge
     if message.channel.name == '🏆challenges':
-        
+
         if message.content.lower().startswith('!wheelie'):
 
-            await update_data(users, message.author)
+            await sep21wheelie(users, message.author, message)
 
-            users[str(message.author.id)]['september21wheelie'] = 0
-
-
-
-            username = str(message.author.mention).split('#')[0]
-            issep21wheeliecomplete = int(users[str(message.author.id)]['september21wheelie'])
-            wheeliesep21role = discord.utils.get(message.author.guild.roles, name = "September: Wheelie Warrior")
-            #messagesplit = message.content.split(" ",8)[1:]
-
-            if "September: Wheelie Warrior" in [y.name for y in message.author.roles]:
-                await message.channel.send(f'I mean good that you did it again but you only get one role')
-                await september21wheeliechallenge (users, message.author)
-
-            elif not issep21wheeliecomplete == 1:
-                
-                await september21wheeliechallenge (users, message.author)
-
-                await message.author.add_roles(wheeliesep21role)
-
-                await message.channel.send(f'Congratulations {username} you have completed the September wheelie Challenge! Here is the role you have earned!')
-
-            #This is for the Challenger role incase they don't have it
-            if "Challenger" in [y.name for y in message.author.roles]:
-                return
-            elif "Challenger" not in [y.name for y in message.author.roles]:
-                await message.author.add_roles(challengerrole)
+            
 
         #200km ride Challenge
     if message.channel.name == '🏆challenges':
+
         if message.content.lower().startswith('!200ride'):
 
-            await update_data(users, message.author)
+            await sep21200ride(users, message.author, message)
 
-            users[str(message.author.id)]['september21ride200km'] = 0
-
-            username = str(message.author.mention).split('#')[0]
-            issep21ridecomplete = int(users[str(message.author.id)]['september21ride200km'])
-            ridesep21role = discord.utils.get(message.author.guild.roles, name = "September: Endurance Expert")
-            #messagesplit = message.content.split(" ",8)[1:]
-
-            if "September: Endurance Expert" in [y.name for y in message.author.roles]:
-                await message.channel.send(f'I mean good that you did it again, 2 200km rides a month maybe go pro? But you only get one role')
-                await september21ridechallenge (users, message.author)
-
-            elif not issep21ridecomplete == 1:
-                
-                await september21ridechallenge (users, message.author)
-
-                await message.author.add_roles(ridesep21role)
-
-                await message.channel.send(f'Congraulations {username} you have completed the 200km ride! Absolutely mental :o Here is the role you have earned!')
-
-            #This is for the Challenger role incase they don't have it
-            if "Challenger" in [y.name for y in message.author.roles]:
-                return
-            elif "Challenger" not in [y.name for y in message.author.roles]:
-                await message.author.add_roles(challengerrole)
+            
     #--------------------------------------------#
 
     
@@ -307,6 +181,155 @@ async def on_message(message):
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
+
+#August Challenges
+
+#-----------------------------------------------#
+
+#Trackstandchallenge
+
+async def aug21trackstand(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['aug21trackstand'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isaug21trackstandcomplete = int(users[str(message.author.id)]['aug21trackstand'])
+    aug21trackstandrole = discord.utils.get(message.author.guild.roles, name = "August: Track Stand Pro")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "August: Track Stand Pro" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'You can travel back in time and do it again? Insane but still only one role')
+        await aug21trackstandchallenge (users, message.author)
+
+    elif not isaug21trackstandcomplete == 1:
+
+        await aug21trackstandchallenge (users, message.author)
+
+        await message.author.add_roles(aug21trackstandrole)
+
+        await message.channel.send(f'Congratulations {username} you have completed the August trackstand Challenge! Here is the role you have earned!')
+
+
+        #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#RideChallenge
+
+async def aug21ride(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['aug21ride'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isaug21ride = int(users[str(message.author.id)]['aug21ride'])
+    aug21riderole = discord.utils.get(message.author.guild.roles, name = "August: Steady Rider")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "August: Steady Rider" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Only. One. Role.')
+        await aug21ridechallenge (users, message.author)
+
+    elif not isaug21ride == 1:
+
+        await aug21ridechallenge (users, message.author)
+
+        await message.author.add_roles(aug21riderole)
+
+        await message.channel.send(f'Congratulations {username} you have completed the August ride Challenge! Here is the role you have earned!')
+
+        #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
+#September Challenges
+
+#-----------------------------------------------#
+
+#Wheelie Challenge
+
+async def sep21wheelie(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['september21wheelie'] = 0
+
+
+    username = str(message.author.mention).split('#')[0]
+    issep21wheeliecomplete = int(users[str(message.author.id)]['september21wheelie'])
+    wheeliesep21role = discord.utils.get(message.author.guild.roles, name = "September: Wheelie Warrior")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "September: Wheelie Warrior" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'I mean good that you did it again but you only get one role')
+        await september21wheeliechallenge (users, message.author)
+
+    elif not issep21wheeliecomplete == 1:
+
+        await september21wheeliechallenge (users, message.author)
+
+        await message.author.add_roles(wheeliesep21role)
+
+        await message.channel.send(f'Congratulations {username} you have completed the September wheelie Challenge! Here is the role you have earned!')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#200Ride Challenge
+
+async def sep21200ride (users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['september21ride200km'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    issep21ridecomplete = int(users[str(message.author.id)]['september21ride200km'])
+    ridesep21role = discord.utils.get(message.author.guild.roles, name = "September: Endurance Expert")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "September: Endurance Expert" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'I mean good that you did it again, 2 200km rides a month maybe go pro? But you only get one role')
+        await september21ridechallenge (users, message.author)
+
+    elif not issep21ridecomplete == 1:
+
+        await september21ridechallenge (users, message.author)
+
+        await message.author.add_roles(ridesep21role)
+
+        await message.channel.send(f'Congraulations {username} you have completed the 200km ride! Absolutely mental :o Here is the role you have earned!')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
 
 #Helper function to add the kms to the json
 
