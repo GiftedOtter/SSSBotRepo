@@ -26,7 +26,7 @@ async def on_member_join(member):
     with open('users.json', 'r') as f:
         users = json.load(f)
 
-    await update_data(users, member)
+    #await update_data(users, member)
 
 
 
@@ -47,9 +47,6 @@ async def on_message(message):
     if message.author.bot:
                 return
     
-    if message.channel.name == '🏆challenges':
-    
-      await update_data(users, message.author)
 
     #this is the !add command with progress message and adding to json 
     #if message.channel.name == 'botstuff':
@@ -109,6 +106,8 @@ async def on_message(message):
         
         if message.content.lower().startswith('!aug21trackstand'):
 
+            await update_data(users, message.author)
+
             users[str(message.author.id)]['aug21trackstand'] = 0
 
 
@@ -142,6 +141,8 @@ async def on_message(message):
     if message.channel.name == '🏆challenges':
         
         if message.content.lower().startswith('!aug21ride'):
+
+            await update_data(users, message.author)
 
             users[str(message.author.id)]['aug21ride'] = 0
 
@@ -181,6 +182,8 @@ async def on_message(message):
         
         if message.content.lower().startswith('!wheelie'):
 
+            await update_data(users, message.author)
+
             users[str(message.author.id)]['september21wheelie'] = 0
 
 
@@ -211,6 +214,8 @@ async def on_message(message):
         #200km ride Challenge
     if message.channel.name == '🏆challenges':
         if message.content.lower().startswith('!200ride'):
+
+            await update_data(users, message.author)
 
             users[str(message.author.id)]['september21ride200km'] = 0
 
