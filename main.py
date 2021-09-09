@@ -224,7 +224,7 @@ async def eightball(users, user, message):
         'very doubtful',
         'CDTrack says yes']
 
-    randomanswer = random.randint(0,len(answerlist))
+    randomanswer = random.randint(0,len(answerlist)-1)
 
     await message.channel.send(f' ***8Ball says:*** `{answerlist[randomanswer]}`')
 
