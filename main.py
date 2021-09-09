@@ -39,6 +39,18 @@ async def on_message(message):
     with open('users.json', 'r') as f:
         users = json.load(f)    
 
+# ---------------------------
+#Fun commands go here
+
+#8Ball:
+
+
+    if message.content.lower().startswith('!8ball'):
+        if '?' in message.content:
+            await eightball(users, message.author, message)
+        else:
+            await message.channel.send(f'Please ask a question, these usually contain a ?')
+
     #variables for the status message - useful for kmadd function
     #kmstoadd = 0
     #total = 100
@@ -181,6 +193,40 @@ async def on_message(message):
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
+
+
+#Fun Commands
+#8ball:
+#-------------------------------------------------
+
+async def eightball(users, user, message):
+
+    answerlist = [
+        'It is certain',
+        'It is decidedly so',
+        'Without a doubt',
+        'Yes, definitely',
+        'You may rely on it',
+        'As I see it, yes',
+        'Most likely',
+        'Outlook good',
+        'Yes',
+        'Signs pint to yes',
+        'Replay hazy try again',
+        'Ask again later',
+        'Better not tell you now',
+        'Cannot predict now'
+        'Concentrate and ask again',
+        'Don\'t count on it',
+        'My reply is no',
+        'My sources say no',
+        'Outlook not so good',
+        'very doubtful',
+        'CDTrack says yes']
+
+    randomanswer = random.randint(0,len(answerlist))
+
+    await message.channel.send(f' ***8Ball says:*** `{answerlist[randomanswer]}`')
 
 #August Challenges
 
