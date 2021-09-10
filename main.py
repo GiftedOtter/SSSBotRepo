@@ -42,6 +42,19 @@ async def on_message(message):
 # ---------------------------
 #Fun commands go here
 
+    if message.content.lower().startswith('.testimages'):
+        textlist = []
+
+        async for msg in message.channel.history(limit=10000):
+
+            try:
+                textlist.append(msg.attachments[0].url)
+            except IndexError:
+                pass
+            
+        print("done")
+        print(textlist)
+
 #8Ball:
 
 
