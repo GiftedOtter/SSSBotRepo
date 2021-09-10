@@ -38,8 +38,6 @@ async def on_member_join(member):
 async def on_message(message):
     with open('users.json', 'r') as f:
         users = json.load(f)
-    with open('builds.json', 'r') as g:
-        builds = json.load(g)
  
 
 # ---------------------------
@@ -49,7 +47,7 @@ async def on_message(message):
     if message.channel.name == 'bike-archive':
         if message.content.lower().startswith('https'):
 
-            await update_builds(builds, message.content)
+            await update_builds(message.content)
 
 #8Ball:
 
@@ -199,8 +197,6 @@ async def on_message(message):
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
-    with open('builds.json', 'w') as g:
-        json.dump(builds, g)
 
 
 #Fun Commands
@@ -386,7 +382,11 @@ async def sep21200ride (users, user, message):
 ##!fgb json helper function
 #-----------------------------------
 
-async def update_builds(builds, message):
+async def update_builds(message):
+
+    with open('builds.json', 'r') as g:
+        builds = json.load(g)
+    
  
     jsoncountlist = list(builds.keys())
 
@@ -396,10 +396,14 @@ async def update_builds(builds, message):
 
     setjsoncount +=1
 
+   
     if ':' in message:
 
         builds[str(setjsoncount)] = message
+        print('json reached')
 
+    with open('builds.json', 'w') as g:
+        json.dump(builds, g)
 #-----------------------------------------------#
 
 #Helper function to add the kms to the json
