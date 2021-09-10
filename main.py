@@ -37,27 +37,19 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     with open('users.json', 'r') as f:
-        users = json.load(f)    
+        users = json.load(f)
+    with open('builds.json', 'r') as g:
+        builds = json.load(g)
+ 
 
 # ---------------------------
 #Fun commands go here
+#This is for !fgb adding it to the json when bot posts
 
-    if message.content.lower().startswith('.testimages'):
-        finallist = []
-        
-        async for msg in message.channel.history(limit=None):
+    if message.channel.name == 'bike-archive':
+        if message.content.lower().startswith('https'):
 
-            testattach = msg.content
-
-            if not 'https' in testattach:
-                pass
-            else:
-                finallist.append(testattach)
-
-                print(testattach)
-                
-        print(finallist)
-        print("done")
+            await update_builds(builds, message.content)
 
 #8Ball:
 
@@ -207,6 +199,8 @@ async def on_message(message):
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
+    with open('builds.json', 'w') as g:
+        json.dump(builds, g)
 
 
 #Fun Commands
@@ -388,6 +382,32 @@ async def sep21200ride (users, user, message):
         return
     elif "Challenger" not in [y.name for y in message.author.roles]:
         await message.author.add_roles(challengerrole)
+
+##!fgb json helper function
+#-----------------------------------
+
+async def update_builds(builds, message):
+ 
+    jsoncountlist = list(builds.keys())
+
+    print(jsoncountlist)
+
+    getjsoncount = jsoncountlist[-1]
+
+    print(getjsoncount)
+
+    setjsoncount = int(getjsoncount)
+
+    setjsoncount +=1
+
+    print(setjsoncount)
+
+    print(message)
+    print(type(message))
+
+    if ':' in message:
+
+        builds[str(setjsoncount)] = message
 
 #-----------------------------------------------#
 
@@ -599,6 +619,23 @@ async def leaderboard(ctx):
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
+
+@client.command()
+async def fgb(ctx):
+
+    with open('builds.json', 'r') as g:
+        builds = json.load(g)
+
+    getrandomimage = random.randint(1,len(builds))
+
+    randomimage = builds[str(getrandomimage)]
+
+    await ctx.channel.send(f'{randomimage}')
+
+    
+
+    with open('builds.json', 'w') as g:
+        json.dump(builds, g)
 
 
 keep_alive()
