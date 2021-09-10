@@ -46,10 +46,7 @@ async def on_message(message):
 
 
     if message.content.lower().startswith('!8ball'):
-        if '?' in message.content:
-            await eightball(users, message.author, message)
-        else:
-            await message.channel.send(f'Please ask a question, these usually contain a ?')
+        await eightball(users, message.author, message)
 
     #variables for the status message - useful for kmadd function
     #kmstoadd = 0
