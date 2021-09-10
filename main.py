@@ -43,18 +43,20 @@ async def on_message(message):
 #Fun commands go here
 
     if message.content.lower().startswith('.testimages'):
-        textlist = []
-
+        finallist = []
+        
         async for msg in message.channel.history(limit=None):
 
-            testattach = msg.attachments
+            testattach = msg.content
 
-            if testattach == []:
+            if not 'https' in testattach:
                 pass
             else:
+                finallist.append(testattach)
 
-                print(testattach[0])
-        
+                print(testattach)
+                
+        print(finallist)
         print("done")
 
 #8Ball:
