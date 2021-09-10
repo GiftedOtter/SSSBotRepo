@@ -390,20 +390,11 @@ async def update_builds(builds, message):
  
     jsoncountlist = list(builds.keys())
 
-    print(jsoncountlist)
-
     getjsoncount = jsoncountlist[-1]
-
-    print(getjsoncount)
 
     setjsoncount = int(getjsoncount)
 
     setjsoncount +=1
-
-    print(setjsoncount)
-
-    print(message)
-    print(type(message))
 
     if ':' in message:
 
