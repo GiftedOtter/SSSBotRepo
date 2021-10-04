@@ -133,6 +133,29 @@ async def on_message(message):
             
     #--------------------------------------------#
 
+
+    #OktoberChallenges
+
+        #----------------------------------------------#
+            #Speed challenge
+    if message.channel.name == '🏆challenges':
+
+        if message.content.lower().startswith('!octoberspeed'):
+
+            await okt21speed(users, message.author, message)
+
+                
+
+            #Fish and Chips
+    if message.channel.name == '🏆challenges':
+
+        if message.content.lower().startswith('!fishandchips'):
+
+            await okt21trick(users, message.author, message)
+
+                
+        #--------------------------------------------#
+
     
 
     #leaderboard - This now works as an embed
@@ -215,12 +238,12 @@ async def eightball(users, user, message):
         'Most likely',
         'Outlook good',
         'Yes',
-        'Signs pint to yes',
-        'Replay hazy try again',
-        'Ask again later',
-        'Better not tell you now',
-        'Cannot predict now',
-        'Concentrate and ask again',
+        'Signs point to yes',
+        'If it feels right',
+        'No.',
+        'Better not',
+        'For suure!',
+        '100%, unless...',
         'Don\'t count on it',
         'My reply is no',
         'My sources say no',
@@ -379,6 +402,79 @@ async def sep21200ride (users, user, message):
     elif "Challenger" not in [y.name for y in message.author.roles]:
         await message.author.add_roles(challengerrole)
 
+
+#Oktober Challenges
+
+#-----------------------------------------------#
+
+#Speed Challenge
+
+async def okt21speed(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['oktober21speed'] = 0
+
+
+    username = str(message.author.mention).split('#')[0]
+    isokt21speedcomplete = int(users[str(message.author.id)]['oktober21speed'])
+    wheelieokt21role = discord.utils.get(message.author.guild.roles, name = "October: Fastest on the Block")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "October: Fastest on the Block" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'No doubles')
+        await oktober21speedchallenge (users, message.author)
+
+    elif not isokt21speedcomplete == 1:
+
+        await oktober21speedchallenge (users, message.author)
+
+        await message.author.add_roles(wheelieokt21role)
+
+        await message.channel.send(f'Congratulations {username} you have completed the Oktober speeeeed Challenge! Here is the role you have earned!')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#Fish and Chips Challenge
+
+async def okt21trick (users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['oktober21trick'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isokt21trickcomplete = int(users[str(message.author.id)]['oktober21trick'])
+    okt21trickrole = discord.utils.get(message.author.guild.roles, name = "October: Crispy Trickster")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "October: Crispy Trickster" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'I see those fish and chips are getting better but only one role')
+        await oktober21trickchallenge (users, message.author)
+
+    elif not isokt21trickcomplete == 1:
+
+        await oktober21trickchallenge (users, message.author)
+
+        await message.author.add_roles(okt21trickrole)
+
+        await message.channel.send(f'Congraulations {username} you have completed the fish and chips challenge! Here is the role you have earned!')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
 ##!fgb json helper function
 #-----------------------------------
 
@@ -443,6 +539,16 @@ async def september21wheeliechallenge(users, user):
 
 async def september21ridechallenge(users, user):
     users[str(user.id)]['september21ride200km'] = 1
+
+#-----------------------------------------#
+
+#Oktober21 Challenges
+#-----------------------------------------#
+async def oktober21speedchallenge(users, user):
+    users[str(user.id)]['oktober21speed'] = 1
+
+async def oktober21trickchallenge(users, user):
+    users[str(user.id)]['oktober21trick'] = 1
 
 #-----------------------------------------#
 
