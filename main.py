@@ -567,8 +567,14 @@ async def challenges(ctx):
         return
 
     challengeschannel = ctx.channel.name
-    
-    monthlytitle = "September Challenges"
+
+    monthlytitle = "October Challenges"
+
+    challenge1name = 'Speed Challenge'
+    challenge1 = (f'> Reach a maximum of speed of 50kmh (31 mph) during any ride (Method of recording this speed is up to you )\n \n \n Use: ***!octoberspeed*** in the `#{challengeschannel}` Channel to receive your reward!')
+
+    challenge2name = 'Trick Challenge'
+    challenge2 = (f'> Complete one successful fish n chips \n \n \n Use : ***!fishandchips*** in the `#{challengeschannel}` Channel to receive your reward!')
 
     channel = ctx.message.channel
     embed = discord.Embed(
@@ -579,10 +585,10 @@ async def challenges(ctx):
 
 
     embed.add_field(name=f'\u200b', value=f'\u200b', inline = False)
-    embed.add_field(name="Wheelie Challenge", value = (f'> Do a nohanded wheelie for a minimum of 5 seconds - Good Luck!\n \n \n Use: ***!wheelie*** in the `#{challengeschannel}` Channel to receive your reward!' ), inline = True)
-    embed.add_field(name="Ride Challenge", value=(f'> Complete a 200km ride - also known as a double century \n \n \n Use : ***!200ride*** in the `#{challengeschannel}` Channel to receive your reward!'), inline = True)
+    embed.add_field(name=challenge1name, value = challenge1, inline = True)
+    embed.add_field(name=challenge2name, value=challenge2, inline = True)
     embed.add_field(name=f'\u200b', value=f'\u200b', inline = False)
-    embed.add_field(name=f'\u200b', value=f'> Pro tip: use ***!aug21trackstand*** and ***!aug21ride*** to claim your rewards for the August challenges!', inline = False)
+    #embed.add_field(name=f'\u200b', value=f'> Pro tip: use ***!aug21trackstand*** and ***!aug21ride*** to claim your rewards for the August challenges!', inline = False)
 
 
     embed.set_footer(text='Go complete the challenges!')
