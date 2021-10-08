@@ -434,6 +434,12 @@ async def okt21speed(users, user, message):
 
         await message.channel.send(f'Congratulations {username} you have completed the Oktober speeeeed Challenge! Here is the role you have earned!')
 
+        await message.channel.send('https://cdn.discordapp.com/attachments/868194193221251082/894861647833882634/inconnu.gif')
+
+
+
+        
+
     #This is for the Challenger role incase they don't have it
     if "Challenger" in [y.name for y in message.author.roles]:
         return
@@ -609,8 +615,39 @@ async def leaderboard(ctx):
         await ctx.send(f'Please only use this in the #🏆challenges channel')
         return
 
-    with open('users.json', 'r') as f:
-        users = json.load(f)
+    with open('users.json', 'r') as z:
+        users = json.load(z)
+
+
+
+    #This regenerates the json every time
+
+    for member in ctx.guild.members:
+
+        users[str(member.id)] = {}
+        users[str(member.id)]['username'] = member.display_name
+        users[str(member.id)]['userid'] = member.id
+        users[str(member.id)]['onlyonemessage'] = 0
+
+        for role in member.roles:
+            if role.name == "September: Wheelie Warrior":
+                users[str(member.id)]["September: Wheelie Warrior"] = 1
+            if role.name == "September: Endurance Expert":
+                users[str(member.id)]["September: Endurance Expert"] = 1
+            if role.name == "August: Track Stand Pro":
+                users[str(member.id)]["August: Track Stand Pro"] = 1
+            if role.name == "August: Steady Rider":
+                users[str(member.id)]["August: Steady Rider"] = 1
+            if role.name == "October: Crispy Trickster":
+                users[str(member.id)]["October: Crispy Trickster"] = 1
+            if role.name == "October: Fastest on the Block":
+                users[str(member.id)]["October: Fastest on the Block"] = 1
+
+
+
+
+
+
 
     #This was just for testing still interesting though
     #member_count = 0
@@ -651,6 +688,8 @@ async def leaderboard(ctx):
     listofchallengers = []
     for key, value in users.items():
 
+        if len(value) > 3:
+
             #Sneaky trick to get the username without converting ID
             listofchallengers.append(users[key]["username"])
 
@@ -659,7 +698,9 @@ async def leaderboard(ctx):
     listofdonechallenges = []
     for key,value in users.items():
 
-        listofdonechallenges.append(len(value)-3)
+        if len(value) > 3:
+
+            listofdonechallenges.append(len(value)-3)
 
 
     # This is to merge the lists and then convert them to a list
@@ -724,8 +765,8 @@ async def leaderboard(ctx):
 
     await ctx.send(embed=embed)
 
-    with open('users.json', 'w') as f:
-        json.dump(users, f)
+    with open('users.json', 'w') as z:
+        json.dump(users, z)
 
 @client.command()
 async def fgb(ctx):
