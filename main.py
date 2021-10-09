@@ -615,9 +615,23 @@ async def leaderboard(ctx):
         await ctx.send(f'Please only use this in the #🏆challenges channel')
         return
 
+
+    #clears leaderboard first
+
+
     with open('leaderboard.json', 'r') as z:
         users = json.load(z)
 
+        users = {}
+    
+    with open('leaderboard.json', 'w') as z:
+        json.dump(users, z)
+
+
+    
+
+    with open('leaderboard.json', 'r') as z:
+        users = json.load(z)
 
 
     #This regenerates the json every time
