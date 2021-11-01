@@ -156,6 +156,31 @@ async def on_message(message):
                 
         #--------------------------------------------#
 
+
+    #November challenges
+
+        #----------------------------------------------#
+            #Pasta Picture
+    if message.channel.name == '🏆challenges':
+
+        if message.content.lower().startswith('!pastapaperazzi'):
+
+            await nov21picture(users, message.author, message)
+
+                
+
+            #Commute Swichteroo
+    if message.channel.name == '🏆challenges':
+
+        if message.content.lower().startswith('!commuteswap'):
+
+            await nov21commuteswap(users, message.author, message)
+
+                
+        #--------------------------------------------#
+
+    
+
     
 
     #leaderboard - This now works as an embed
@@ -481,6 +506,87 @@ async def okt21trick (users, user, message):
 
 #-----------------------------------------------#
 
+
+#November Challenges
+
+#-----------------------------------------------#
+
+#Pasta Picture
+
+async def nov21picture(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['november21pastapic'] = 0
+
+
+    username = str(message.author.mention).split('#')[0]
+    isnov21picturecomplete = int(users[str(message.author.id)]['november21pastapic'])
+    pastapicnov21role = discord.utils.get(message.author.guild.roles, name = "November: Pasta Paperazzi")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "November: Pasta Paperazzi" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Second Pasta is cooking... please hold')
+        await november21pastachallenge (users, message.author)
+
+    elif not isnov21picturecomplete == 1:
+
+        await november21pastachallenge (users, message.author)
+
+        await message.author.add_roles(pastapicnov21role)
+
+        await message.channel.send(f'Congratulations {username} you are a Pasta Paperazzi. Lets hope no police shows up after that heist')
+
+        await message.channel.send('https://acegif.com/wp-content/gifs/spaghetti-65.gif')
+
+
+
+        
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#Commute Handlebar Swap
+
+async def nov21commuteswap (users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['nov21commuteswap'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isnov21swapcomplete = int(users[str(message.author.id)]['nov21commuteswap'])
+    nov21swaprole = discord.utils.get(message.author.guild.roles, name = "November: Switcharoo Master")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "November: Switcharoo Master" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Maybe try swapping while riding for another role')
+        await november21swapchallenge (users, message.author)
+
+    elif not isnov21swapcomplete == 1:
+
+        await november21swapchallenge (users, message.author)
+
+        await message.author.add_roles(nov21swaprole)
+
+        await message.channel.send(f'Congraulations {username} you have completed a pretty whacky Challenge! Here is the role you have earned')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
+
+
 ##!fgb json helper function
 #-----------------------------------
 
@@ -558,6 +664,16 @@ async def oktober21trickchallenge(users, user):
 
 #-----------------------------------------#
 
+#November 21 Challenges
+#-----------------------------------------#
+async def november21pastachallenge(users, user):
+    users[str(user.id)]['november21pastapic'] = 1
+
+async def november21swapchallenge(users, user):
+    users[str(user.id)]['nov21commuteswap'] = 1
+
+#-----------------------------------------#
+
 
 #list challenges
 
@@ -574,13 +690,13 @@ async def challenges(ctx):
 
     challengeschannel = ctx.channel.name
 
-    monthlytitle = "October Challenges"
+    monthlytitle = "November Challenges"
 
-    challenge1name = 'Speed Challenge'
-    challenge1 = (f'> Reach a maximum of speed of 50kmh (31 mph) during any ride (Method of recording this speed is up to you )\n \n \n Use: ***!octoberspeed*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge1name = 'Switachroo challenge'
+    challenge1 = (f'> Complete your commute but with a twist. Ride one direction of the commute with drops, swap your handlebars, and ride the other direction with risers. \n Home -> Risers -> Work / Uni / etc. -> Drops -> Home \n \n \n Use: ***!commuteswap*** in the `#{challengeschannel}` Channel to receive your reward!')
 
-    challenge2name = 'Trick Challenge'
-    challenge2 = (f'> Complete one successful fish n chips \n \n \n Use : ***!fishandchips*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge2name = 'Pasta Paperazzi Challenge'
+    challenge2 = (f'> Visit your local Supermarket and take a picture of your bike / you with your bike in the pasta aisle \n \n \n Use : ***!pastapaperazzi*** in the `#{challengeschannel}` Channel to receive your reward!')
 
     channel = ctx.message.channel
     embed = discord.Embed(
@@ -594,6 +710,8 @@ async def challenges(ctx):
     embed.add_field(name=challenge1name, value = challenge1, inline = True)
     embed.add_field(name=challenge2name, value=challenge2, inline = True)
     embed.add_field(name=f'\u200b', value=f'\u200b', inline = False)
+
+    embed.add_field(name=f'Leaderboard', value="also take a look a the leaderboard with ***!leaderbaord***")
     #embed.add_field(name=f'\u200b', value=f'> Pro tip: use ***!aug21trackstand*** and ***!aug21ride*** to claim your rewards for the August challenges!', inline = False)
 
 
@@ -725,6 +843,8 @@ async def leaderboard(ctx):
     #Sorts the leaderboard by 2nd tuple aka listofdonechallenges (which is the amount) from large to small
 
     sortedleaderboard = sorted(leaderboardlist, key=lambda tup: tup[1], reverse = True)
+
+    print(sortedleaderboard)
 
     #Leaderboardembed
 
