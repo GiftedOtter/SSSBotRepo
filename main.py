@@ -711,7 +711,7 @@ async def challenges(ctx):
     embed.add_field(name=challenge2name, value=challenge2, inline = True)
     embed.add_field(name=f'\u200b', value=f'\u200b', inline = False)
 
-    embed.add_field(name=f'Leaderboard', value="also take a look a the leaderboard with ***!leaderbaord***")
+    embed.add_field(name=f'Leaderboard', value="also take a look at the leaderboard with ***!leaderbaord***")
     #embed.add_field(name=f'\u200b', value=f'> Pro tip: use ***!aug21trackstand*** and ***!aug21ride*** to claim your rewards for the August challenges!', inline = False)
 
 
@@ -774,6 +774,10 @@ async def leaderboard(ctx):
                 users[str(member.id)]["October: Crispy Trickster"] = 1
             if role.name == "October: Fastest on the Block":
                 users[str(member.id)]["October: Fastest on the Block"] = 1
+            if role.name == "November: Pasta Paperazzi":
+                users[str(member.id)]["November: Pasta Paperazzi"] = 1
+            if role.name == "November: Switcharoo Master":
+                users[str(member.id)]["November: Switcharoo Master"] = 1
 
 
 
