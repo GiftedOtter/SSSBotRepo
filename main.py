@@ -711,7 +711,7 @@ async def challenges(ctx):
     embed.add_field(name=challenge2name, value=challenge2, inline = True)
     embed.add_field(name=f'\u200b', value=f'\u200b', inline = False)
 
-    embed.add_field(name=f'Leaderboard', value="also take a look at the leaderboard with ***!leaderbaord***")
+    embed.add_field(name=f'Leaderboard', value="also take a look at the leaderboard with ***!leaderboard***")
     #embed.add_field(name=f'\u200b', value=f'> Pro tip: use ***!aug21trackstand*** and ***!aug21ride*** to claim your rewards for the August challenges!', inline = False)
 
 
