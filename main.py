@@ -891,6 +891,10 @@ async def leaderboard(ctx):
                 users[str(member.id)]["November: Pasta Paperazzi"] = 1
             if role.name == "November: Switcharoo Master":
                 users[str(member.id)]["November: Switcharoo Master"] = 1
+            if role.name == "December: Lucky Climber":
+                users[str(member.id)]["December: Lucky Climber"] = 1
+            if role.name == "December: Big Pine Hunter":
+                users[str(member.id)]["December: Big Pine Hunter"] = 1
 
 
 
