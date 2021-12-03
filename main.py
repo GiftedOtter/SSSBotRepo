@@ -180,7 +180,27 @@ async def on_message(message):
         #--------------------------------------------#
 
     
+    #December challenges
 
+            #----------------------------------------------#
+                #Pasta Picture
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!luckyclimber'):
+
+                await dec21climber(users, message.author, message)
+
+                    
+
+                #Commute Swichteroo
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!bigpinehunter'):
+
+                await dec21treepic(users, message.author, message)
+
+                    
+            #--------------------------------------------#
     
 
     #leaderboard - This now works as an embed
@@ -585,6 +605,85 @@ async def nov21commuteswap (users, user, message):
 
 #-----------------------------------------------#
 
+#December Challenges
+
+#-----------------------------------------------#
+
+#Lucky Climber
+
+async def dec21climber(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['december21climb'] = 0
+
+
+    username = str(message.author.mention).split('#')[0]
+    isdec21climbcomplete = int(users[str(message.author.id)]['december21climb'])
+    dec21climbrole = discord.utils.get(message.author.guild.roles, name = "December: Lucky Climber")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "December: Lucky Climber" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Im afraid the jackpot can only be won once')
+        await december21climbchallenge (users, message.author)
+
+    elif not isdec21climbcomplete == 1:
+
+        await december21climbchallenge (users, message.author)
+
+        await message.author.add_roles(dec21climbrole)
+
+        await message.channel.send(f'Congratulations {username} you have got some good luck coming your way this month')
+
+        #await message.channel.send('https://acegif.com/wp-content/gifs/spaghetti-65.gif')
+
+
+
+        
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#big pine hunter
+
+async def dec21treepic (users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['dec21treepic'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isdec21treepiccomplete = int(users[str(message.author.id)]['dec21treepic'])
+    dec21treepicrole = discord.utils.get(message.author.guild.roles, name = "December: Big Pine Hunter")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "December: Big Pine Hunter" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'If you post another pic maybe you get something special')
+        await december21treepicchallenge (users, message.author)
+
+    elif not isdec21treepiccomplete == 1:
+
+        await december21treepicchallenge (users, message.author)
+
+        await message.author.add_roles(dec21treepicrole)
+
+        await message.channel.send(f'Congraulations {username} that was a sick picture! Im a bot but I definetely feel the christmas spirit!')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
+
 
 
 ##!fgb json helper function
@@ -674,6 +773,16 @@ async def november21swapchallenge(users, user):
 
 #-----------------------------------------#
 
+#December 21 Challenges
+#-----------------------------------------#
+async def december21climbchallenge(users, user):
+    users[str(user.id)]['december21climb'] = 1
+
+async def december21treepicchallenge(users, user):
+    users[str(user.id)]['dec21treepic'] = 1
+
+#-----------------------------------------#
+
 
 #list challenges
 
@@ -692,11 +801,15 @@ async def challenges(ctx):
 
     monthlytitle = "November Challenges"
 
-    challenge1name = 'Switachroo challenge'
-    challenge1 = (f'> Complete your commute but with a twist. Ride one direction of the commute with drops, swap your handlebars, and ride the other direction with risers. \n Home -> Risers -> Work / Uni / etc. -> Drops -> Home \n \n \n Use: ***!commuteswap*** in the `#{challengeschannel}` Channel to receive your reward!')
+    monthlytitle = "December Challenges"
 
-    challenge2name = 'Pasta Paperazzi Challenge'
-    challenge2 = (f'> Visit your local Supermarket and take a picture of your bike / you with your bike in the pasta aisle \n \n \n Use : ***!pastapaperazzi*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge1name = 'Lucky Climb Challenge'
+    challenge1 = (f'> Go on a ride and record your lucky performance of 777 meters of elevation gain (or more) \n \n \n Use: ***!luckyclimber*** in the `#{challengeschannel}` Channel to receive your reward!')
+
+    challenge2name = 'Big Pine Hunter Challenge'
+    challenge2 = (f'> Take a picture of yourself in front of the biggest Christmas tree you can find, while getting creative with your bike and your outfit! (ugly charismas sweater, Santas hat, lights on your bike) \n \n \n Use : ***!bigpinehunter*** in the `#{challengeschannel}` Channel to receive your reward!')
+
+
 
     channel = ctx.message.channel
     embed = discord.Embed(
