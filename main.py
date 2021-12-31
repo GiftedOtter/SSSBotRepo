@@ -7,6 +7,9 @@ from discord.ext import commands
 
 #TODO
 
+#429 too many requests error
+#kill 1 in shell
+
 
 intents = discord.Intents.default()
 intents.members = True
@@ -799,15 +802,14 @@ async def challenges(ctx):
 
     challengeschannel = ctx.channel.name
 
-    monthlytitle = "November Challenges"
+    monthlytitle = "January Challenges"
 
-    monthlytitle = "December Challenges"
+    challenge1name = 'New Year, Faster Century'
+    challenge1 = (f'> Complete a metric century of 100km (62,13 Miles) in under 4 hours \n \n \n Use: ***!speedycentury*** in the `#{challengeschannel}` Channel to receive your reward!')
 
-    challenge1name = 'Lucky Climb Challenge'
-    challenge1 = (f'> Go on a ride and record your lucky performance of 777 meters of elevation gain (or more) \n \n \n Use: ***!luckyclimber*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge2name = 'No Bars Mo Problems'
+    challenge2 = (f'> Record yourself riding your bike without handlebars attached - only a stem or no stem if you are brave \n \n \n Use : ***!nobarsmoproblems*** in the `#{challengeschannel}` Channel to receive your reward!')
 
-    challenge2name = 'Big Pine Hunter Challenge'
-    challenge2 = (f'> Take a picture of yourself in front of the biggest Christmas tree you can find, while getting creative with your bike and your outfit! (ugly charismas sweater, Santas hat, lights on your bike) \n \n \n Use : ***!bigpinehunter*** in the `#{challengeschannel}` Channel to receive your reward!')
 
 
 
