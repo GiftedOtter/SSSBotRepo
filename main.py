@@ -204,6 +204,28 @@ async def on_message(message):
 
                     
             #--------------------------------------------#
+
+    #January22 challenges
+
+            #----------------------------------------------#
+                #Speed Century
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!speedycentury'):
+
+                await jan22century(users, message.author, message)
+
+                    
+
+                #No bars mo problems
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!nobarsmoproblems'):
+
+                await jan22nobars(users, message.author, message)
+
+                    
+            #--------------------------------------------#
     
 
     #leaderboard - This now works as an embed
@@ -687,6 +709,83 @@ async def dec21treepic (users, user, message):
 #-----------------------------------------------#
 
 
+#January22 Challenges
+
+#-----------------------------------------------#
+
+#Speed Century
+
+async def jan22century(users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['jan22century'] = 0
+
+
+    username = str(message.author.mention).split('#')[0]
+    isjan22centurycomplete = int(users[str(message.author.id)]['jan22century'])
+    jan22centuryrole = discord.utils.get(message.author.guild.roles, name = "January: New Year, Faster Century")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "January: New Year, Faster Century" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Too fast for two challenges')
+        await jan22centurychelperfunction (users, message.author)
+
+    elif not isjan22centurycomplete == 1:
+
+        await jan22centurychelperfunction (users, message.author)
+
+        await message.author.add_roles(jan22centuryrole)
+
+        await message.channel.send(f'Good one {username}! That is some serious speed and endurance you got.')
+
+        #await message.channel.send('https://acegif.com/wp-content/gifs/spaghetti-65.gif')
+
+
+
+        
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#No bars more problems
+
+async def jan22nobars (users, user, message):
+
+    await update_data(users, message.author)
+
+    users[str(message.author.id)]['jann22nobars'] = 0
+
+    username = str(message.author.mention).split('#')[0]
+    isjan22nobarscomplete = int(users[str(message.author.id)]['jann22nobars'])
+    jan22nobarsrole = discord.utils.get(message.author.guild.roles, name = "January: No Bars Mo' Problems")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+    #messagesplit = message.content.split(" ",8)[1:]
+
+    if "January: No Bars Mo' Problems" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'Maybe it is time to put some bars back onto your bike')
+        await jan22barshelperfunction (users, message.author)
+
+    elif not isjan22nobarscomplete == 1:
+
+        await december21treepicchallenge (users, message.author)
+
+        await message.author.add_roles(jan22nobarsrole)
+
+        await message.channel.send(f'Well done {username}! I doubt alot of people have done that before so welcome to the no bars club')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
 
 
 ##!fgb json helper function
@@ -786,6 +885,16 @@ async def december21treepicchallenge(users, user):
 
 #-----------------------------------------#
 
+#Jan 22 Challenges helper functions
+#-----------------------------------------#
+async def jan22centurychelperfunction(users, user):
+    users[str(user.id)]['jan22century'] = 1
+
+async def jan22barshelperfunction(users, user):
+    users[str(user.id)]['jann22nobars'] = 1
+
+#-----------------------------------------#
+
 
 #list challenges
 
@@ -805,7 +914,7 @@ async def challenges(ctx):
     monthlytitle = "January Challenges"
 
     challenge1name = 'New Year, Faster Century'
-    challenge1 = (f'> Complete a metric century of 100km (62,13 Miles) in under 4 hours \n \n \n Use: ***!speedycentury*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge1 = (f'> Complete a metric century of 100km (62,13 Miles) in under 4 hours \n \n \n Use: ***!speedycentury*** in the `#{challengeschannel}` Channel to receive your reward!  \n \n \n')
 
     challenge2name = 'No Bars Mo Problems'
     challenge2 = (f'> Record yourself riding your bike without handlebars attached - only a stem or no stem if you are brave \n \n \n Use : ***!nobarsmoproblems*** in the `#{challengeschannel}` Channel to receive your reward!')
@@ -897,6 +1006,10 @@ async def leaderboard(ctx):
                 users[str(member.id)]["December: Lucky Climber"] = 1
             if role.name == "December: Big Pine Hunter":
                 users[str(member.id)]["December: Big Pine Hunter"] = 1
+            if role.name == "January: New Year, Faster Century":
+                users[str(member.id)]["January: New Year, Faster Century"] = 1
+            if role.name == "January: No Bars Mo' Problems":
+                users[str(member.id)]["January: No Bars Mo' Problems"] = 1
 
 
 
