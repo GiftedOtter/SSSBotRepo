@@ -723,7 +723,7 @@ async def jan22century(users, user, message):
 
 
     username = str(message.author.mention).split('#')[0]
-    isjan22centurycomplete = int(users[str(message.author.id)]['jan22century'])
+    #isjan22centurycomplete = int(users[str(message.author.id)]['jan22century'])
     jan22centuryrole = discord.utils.get(message.author.guild.roles, name = "January: New Year, Faster Century")
     challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
     #messagesplit = message.content.split(" ",8)[1:]
@@ -732,9 +732,9 @@ async def jan22century(users, user, message):
         await message.channel.send(f'Too fast for two challenges')
         await jan22centurychelperfunction (users, message.author)
 
-    elif not isjan22centurycomplete == 1:
+    else:
 
-        await jan22centurychelperfunction (users, message.author)
+        #await jan22centurychelperfunction (users, message.author)
 
         await message.author.add_roles(jan22centuryrole)
 
@@ -773,7 +773,7 @@ async def jan22nobars (users, user, message):
 
     elif not isjan22nobarscomplete == 1:
 
-        await december21treepicchallenge (users, message.author)
+        await jan22barshelperfunction (users, message.author)
 
         await message.author.add_roles(jan22nobarsrole)
 
