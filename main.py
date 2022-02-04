@@ -226,6 +226,28 @@ async def on_message(message):
 
                     
             #--------------------------------------------#
+
+    #Febuary22 challenges
+
+            #----------------------------------------------#
+                #Long Skid
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!longskid'):
+
+                await feb22skid(users, message.author, message)
+
+                    
+
+                #Sky High Snap
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!skyhighsnap'):
+
+                await feb22snap(users, message.author, message)
+
+                    
+            #--------------------------------------------#
     
 
     #leaderboard - This now works as an embed
@@ -724,11 +746,11 @@ async def jan22century(users, user, message):
 
     username = str(message.author.mention).split('#')[0]
     #isjan22centurycomplete = int(users[str(message.author.id)]['jan22century'])
-    jan22centuryrole = discord.utils.get(message.author.guild.roles, name = "January: New Year, Faster Century")
+    jan22centuryrole = discord.utils.get(message.author.guild.roles, name = "January: New Year, New Century")
     challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
     #messagesplit = message.content.split(" ",8)[1:]
 
-    if "January: New Year, Faster Century" in [y.name for y in message.author.roles]:
+    if "January: New Year, New Century" in [y.name for y in message.author.roles]:
         await message.channel.send(f'Too fast for two challenges')
         await jan22centurychelperfunction (users, message.author)
 
@@ -778,6 +800,64 @@ async def jan22nobars (users, user, message):
         await message.author.add_roles(jan22nobarsrole)
 
         await message.channel.send(f'Well done {username}! I doubt alot of people have done that before so welcome to the no bars club')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
+#Febuary22 Challenges
+
+#-----------------------------------------------#
+
+#long skid
+
+async def feb22skid(users, user, message):
+
+    username = str(message.author.mention).split('#')[0]
+    feb22skidrole = discord.utils.get(message.author.guild.roles, name = "February: Skid Connoisseur")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+
+
+    if "February: Skid Connoisseur" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'If you can skid even farther, maybe I will give you another reward')
+
+    else:
+
+        await message.author.add_roles(feb22skidrole)
+
+        await message.channel.send(f'That was a sick Skid {username}! I hope you still have some tire left :o')
+
+
+        
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#sky high snap
+
+async def feb22snap (users, user, message):
+
+    username = str(message.author.mention).split('#')[0]
+    feb22snaprole = discord.utils.get(message.author.guild.roles, name = "February: Sky High Snap")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+
+    if "February: Sky High Snap" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'The more pictures the merrier but I can sadly only give you one reward')
+    
+
+    else:
+
+        await message.author.add_roles(feb22snaprole)
+
+        await message.channel.send(f'Sweet Picture {username}! Here is your reward to commemorate your achievement')
 
     #This is for the Challenger role incase they don't have it
     if "Challenger" in [y.name for y in message.author.roles]:
@@ -911,13 +991,13 @@ async def challenges(ctx):
 
     challengeschannel = ctx.channel.name
 
-    monthlytitle = "January Challenges"
+    monthlytitle = "Febuary Challenges"
 
-    challenge1name = 'New Year, Faster Century'
-    challenge1 = (f'> Complete a metric century of 100km (62,13 Miles) in under 4 hours \n \n \n Use: ***!speedycentury*** in the `#{challengeschannel}` Channel to receive your reward!  \n \n \n')
+    challenge1name = 'Skid Connoisseur'
+    challenge1 = (f'> Record yourself doing your longest skid possible! \n \n \n Use: ***!longskid*** in the `#{challengeschannel}` Channel to receive your reward!')
 
-    challenge2name = 'No Bars Mo Problems'
-    challenge2 = (f'> Record yourself riding your bike without handlebars attached - only a stem or no stem if you are brave \n \n \n Use : ***!nobarsmoproblems*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge2name = 'Sky High Snap'
+    challenge2 = (f'> Post a picture from a high point with a nice view such as the landscape or skyline. This can also be done inside an elevator or ontop / inside of a building \n \n \n Use : ***!nobarsmoproblems*** in the `#{challengeschannel}` Channel to receive your reward!')
 
 
 
@@ -977,6 +1057,7 @@ async def leaderboard(ctx):
 
 
     #This regenerates the json every time
+    #It's only called users but actually users the leaderboard.json
 
     for member in ctx.guild.members:
 
@@ -1006,10 +1087,14 @@ async def leaderboard(ctx):
                 users[str(member.id)]["December: Lucky Climber"] = 1
             if role.name == "December: Big Pine Hunter":
                 users[str(member.id)]["December: Big Pine Hunter"] = 1
-            if role.name == "January: New Year, Faster Century":
-                users[str(member.id)]["January: New Year, Faster Century"] = 1
+            if role.name == "January: New Year, New Century":
+                users[str(member.id)]["January: New Year, New Century"] = 1
             if role.name == "January: No Bars Mo' Problems":
                 users[str(member.id)]["January: No Bars Mo' Problems"] = 1
+            if role.name == "February: Skid Connoisseur":
+                users[str(member.id)]["February: Skid Connoisseur"] = 1
+            if role.name == "February: Sky High Snap":
+                users[str(member.id)]["February: Sky High Snap"] = 1
 
 
 
