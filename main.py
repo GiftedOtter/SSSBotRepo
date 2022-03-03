@@ -248,6 +248,28 @@ async def on_message(message):
 
                     
             #--------------------------------------------#
+
+    #March22 challenges
+
+            #----------------------------------------------#
+                #Get dirty
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!getdirty'):
+
+                await mar22dirty(users, message.author, message)
+
+                    
+
+                #clean bike
+        if message.channel.name == '🏆challenges':
+
+            if message.content.lower().startswith('!allcleanagain'):
+
+                await mar22clean(users, message.author, message)
+
+                    
+            #--------------------------------------------#
     
 
     #leaderboard - This now works as an embed
@@ -867,6 +889,65 @@ async def feb22snap (users, user, message):
 
 #-----------------------------------------------#
 
+        #March22 Challenges
+
+#-----------------------------------------------#
+
+#get dirty
+
+async def mar22dirty(users, user, message):
+
+    username = str(message.author.mention).split('#')[0]
+    feb22skidrole = discord.utils.get(message.author.guild.roles, name = "March: Dirt Diver")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+
+
+    if "March: Dirt Diver" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'cant get dirty twice sorry')
+
+    else:
+
+        await message.author.add_roles(feb22skidrole)
+
+        await message.channel.send(f'Thats hell of a dirty bike {username}! Time to go clean it now!')
+
+
+        
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+
+#clean again
+
+async def mar22clean (users, user, message):
+
+    username = str(message.author.mention).split('#')[0]
+    feb22snaprole = discord.utils.get(message.author.guild.roles, name = "March: Sparkly Clean")
+    challengerrole = discord.utils.get(message.author.guild.roles, name = "Challenger")
+
+    if "February: Sky High Snap" in [y.name for y in message.author.roles]:
+        await message.channel.send(f'dont think itll get cleaner than that')
+    
+
+    else:
+
+        await message.author.add_roles(feb22snaprole)
+
+        await message.channel.send(f'Now thats a sparkly clean bike {username}! It better not get dirty again tomorrow')
+
+    #This is for the Challenger role incase they don't have it
+    if "Challenger" in [y.name for y in message.author.roles]:
+        return
+    elif "Challenger" not in [y.name for y in message.author.roles]:
+        await message.author.add_roles(challengerrole)
+
+#-----------------------------------------------#
+
+
 
 ##!fgb json helper function
 #-----------------------------------
@@ -993,11 +1074,12 @@ async def challenges(ctx):
 
     monthlytitle = "Febuary Challenges"
 
-    challenge1name = 'Skid Connoisseur'
-    challenge1 = (f'> Record yourself doing your longest skid possible! \n \n \n Use: ***!longskid*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge1name = 'Dirt Diver'
+    challenge1 = (f'> Go out for a ride and get that bike as dirty as you possibly can and then post a before picture of it! \n \n \n Use: ***!getdirty*** in the `#{challengeschannel}` Channel to receive your reward!')
 
     challenge2name = 'Sky High Snap'
-    challenge2 = (f'> Post a picture from a high point with a nice view such as the landscape or skyline. This can also be done inside an elevator or ontop / inside of a building \n \n \n Use : ***!nobarsmoproblems*** in the `#{challengeschannel}` Channel to receive your reward!')
+    challenge2 = (f'> After you have gotten your bike dirty - clean it as good as you can and post the after shot of the bike \n \n \n Use : ***!allcleanagain*** in the `#{challengeschannel}` Channel to receive your reward!')
+
 
 
 
@@ -1095,6 +1177,10 @@ async def leaderboard(ctx):
                 users[str(member.id)]["February: Skid Connoisseur"] = 1
             if role.name == "February: Sky High Snap":
                 users[str(member.id)]["February: Sky High Snap"] = 1
+            if role.name == "March: Dirt Diver":
+                users[str(member.id)]["March: Dirt Diver"] = 1
+            if role.name == "March: Sparkly Clean":
+                users[str(member.id)]["March: Sparkly Clean"] = 1
 
 
 
